@@ -11,6 +11,14 @@ div#entries, #form {
 	margin-bottom: 0;
 }
 
+.card-email {
+	border-top: 1px solid #cdcdcd;
+	padding-left: 15px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	background-color: #f8f9fa;
+}
+
 .date {
 	font-size: 0.8em;
 }
