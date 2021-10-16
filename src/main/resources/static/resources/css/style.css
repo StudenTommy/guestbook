@@ -8,12 +8,14 @@ body {
 	background-color: #121212;
 }
 
-
 .card-header, .card-body, .card-email, .card-footer{
 	background-color: #282828;
 	border-color: white;
 }
 
+.card-header {
+	padding-right: 10px;
+}
 
 .card {
 	margin-bottom: 2em;
@@ -47,8 +49,12 @@ input[type=submit] {
 	margin-top: 1em;
 }
 
-/*
-form button {
-	border: 1px solid white;
+.btn {
+	display: grid;
+	text-align: right;
+	padding: 0;
+}
+
+span {
 	color: white;
-}*/
+}
