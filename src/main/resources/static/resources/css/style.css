@@ -3,12 +3,20 @@ div#entries, #form {
 	width: 50%;
 }
 
-.card {
-	margin-bottom: 2em;
+body {
+	color: white;
+	background-color: #121212;
 }
 
-.card-title {
-	margin-bottom: 0;
+
+.card-header, .card-body, .card-email, .card-footer{
+	background-color: #282828;
+	border-color: white;
+}
+
+
+.card {
+	margin-bottom: 2em;
 }
 
 .card-email {
@@ -16,7 +24,6 @@ div#entries, #form {
 	padding-left: 15px;
 	padding-bottom: 5px;
 	padding-top: 5px;
-	background-color: #f8f9fa;
 }
 
 .date {
@@ -30,3 +37,18 @@ blockquote {
 form#form {
 	padding: 0 1.25em;
 }
+
+input[type=text], .form-control {
+	background-color: #626262;
+}
+
+input[type=submit] {
+	background-color: #555555;
+	margin-top: 1em;
+}
+
+/*
+form button {
+	border: 1px solid white;
+	color: white;
+}*/
