@@ -15,6 +15,7 @@
     */
 package guestbook;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -31,9 +32,10 @@ class GuestbookForm {
 
     private final @NotBlank String name;
     private final @NotBlank String text;
-    private final @NotBlank String email;
+    private final @Email String email;
     
     /**
+     *
         * Creates a new {@link GuestbookForm} with the given name and text. Spring Framework will use this constructor to
         * bind the values provided in the web form described in {@code src/main/resources/templates/guestbook.html}, in
         * particular the {@code name} and {@code text} fields as they correspond to the parameter names of the constructor.

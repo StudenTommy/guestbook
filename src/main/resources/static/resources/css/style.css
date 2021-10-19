@@ -41,7 +41,6 @@ form#form {
 }
 
 input[type=text], .form-control {
-	background-color: #626262;
 }
 
 input[type=submit] {
@@ -50,9 +49,15 @@ input[type=submit] {
 }
 
 .btn {
-	display: grid;
-	text-align: right;
+	display: inline;
+	float: right;
 	padding: 0;
+}
+
+.btn-edit {
+	display: inline;
+	float: right;
+	margin-right: 0.5em;
 }
 
 span {

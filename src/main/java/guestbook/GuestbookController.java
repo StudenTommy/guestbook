@@ -27,11 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
@@ -122,14 +118,7 @@ class GuestbookController {
 	 * @return a reference to a Thymeleaf template fragment
 	 * @see #addEntry(String, String)
 	 */
-	@PostMapping(path = "/guestbook", headers = IS_AJAX_HEADER)
-	String addEntry(@Valid GuestbookForm form, Model model) {
 
-		model.addAttribute("entry", guestbook.save(form.toNewEntry()));
-		model.addAttribute("index", guestbook.count());
-
-		return "guestbook :: entry";
-	}
 
 	/**
 	 * Deletes a {@link GuestbookEntry}. This request can only be performed by authenticated users with admin privileges.
@@ -151,6 +140,42 @@ class GuestbookController {
 
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping(path = "/guestbook/edit/{entry}")
+	String goToEdit (@PathVariable Optional<GuestbookEntry> entry, @ModelAttribute("form") GuestbookForm form, Errors errors, Model model) {
+
+		return entry.map(it -> {
+
+				model.addAttribute("entry", it);
+				model.addAttribute("form", form);
+
+				return "edit";
+
+			}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/guestbook/edit/{entry}")
+	String editEntry (@PathVariable Optional<GuestbookEntry> entry, @Valid @ModelAttribute("form") GuestbookForm form, Errors errors, Model model) {
+
+		if (errors.hasErrors()) {
+			return goToEdit(entry, form, errors, model);
+		}
+
+		return entry.map(it -> {
+			it.setName(form.getName());
+			it.setText(form.getText());
+			it.setEmail(form.getEmail());
+
+			guestbook.save(it);
+
+			return "redirect:/guestbook";
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	}
+
+
 
 	/**
 	 * Handles AJAX requests to delete {@link GuestbookEntry}s. Otherwise, this method is similar to
